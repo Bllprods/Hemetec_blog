@@ -1,0 +1,79 @@
+#CorpoLogin{
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+}
+
+#ContainerLogo{
+	height: 5%;
+	width: 100%;
+}
+
+#Logo{
+	float: left;
+}
+
+#LoginCard{
+	margin: 0 auto;
+	height: 90%;
+	width: 40%;
+	border-radius: 6%;
+	text-align: center;
+}
+
+#Opcao{
+	width: 98%;
+	height: 8%;
+	margin: 0 auto;
+	border-radius: 50px;
+	border: solid, #d8d8d8;
+}
+
+#Bem{
+	width: 100%;
+	text-align: center;
+}
+
+#Login{
+	height: 52%;
+	width: 100%;
+	border: solid, 1px;
+	border-top: none;
+	border-left: none;
+	border-right: none;
+	text-align: center;
+}
+
+input{
+	width: 85%;
+	height: 20%;
+	border: solid, black, 1px;
+	border-radius: 18px;
+	margin-top: 4px;
+}
+
+input::placeholder {
+    font-size: 20px;
+}
+
+#Correio{
+    width: 75%;
+	height: 20%;
+	border: none;
+	border-radius: 18px;
+	margin-top: 4px;
+} 
+
+#Google{
+	width: 75%;
+	height: 10%;
+	border: solid, 1px;
+	border-radius: 18px;
+	margin-top: 4px;
+	background: none;
+	font-size: 20px;
+}

@@ -1,0 +1,36 @@
+/*Home*/
+#Corpo{
+    background-color: white;
+}
+
+
+
+#Cabecario{
+    background: linear-gradient( to right, rgba(96,13,12,38),  rgba(238,143,90, 93));;
+}
+
+/*Login*/
+
+#CorpoLogin{
+    background-color: #002a5b;
+}
+
+#LoginHemetec{
+    color: white;
+}
+
+#LoginCard{
+    background-color: white;
+}
+
+#Correio{
+    background-color: #0b4b84;
+    color: white;
+}
+
+.Termos{
+    color: #5c0a0a;
+}  
+
+/*Noticia*/
+

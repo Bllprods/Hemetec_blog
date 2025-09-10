@@ -1,0 +1,21 @@
+@font-face{
+  font-family: Comum ;
+  src: url('../fontes/CreatoDisplay-Regular.otf') format(truetype),url('CreatoDisplay-Regular.otf') format(opentype);
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face{
+  font-family: Titulo ;
+  src: url('../fontes/arial_black.ttf') format(truetype),url('arial_black.ttf') format(opentype);
+  font-weight: normal;
+  font-style: normal;
+}
+
+body{
+  font-family: Comum;
+}
+
+h1{
+  font-family: Titulo;
+}

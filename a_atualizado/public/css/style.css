@@ -1,0 +1,294 @@
+
+  /*Cabecario.php*/
+#IniciaMenu{
+    float: right;
+    background: none;
+    border: none;
+}
+#Cabecario{
+    width: 100%;
+    height: 6%;
+    min-height: 113px;
+    padding-top: 2vh;
+}
+ 
+#Banner{
+ height: 18%;
+ width: 100%;
+ min-height: 340px;
+ margin-top: 2vh;
+ background-image: url('../imagens/Banner.png');
+ float: right;
+ background-repeat: no-repeat;
+ background-size: 100%;
+}
+ 
+/*inicio do slider*/
+#slider {
+    overflow: hidden;
+    width: 80%;
+    height: 355px;
+    max-width: 1200px;
+    margin: 20px auto;
+    border-radius: 20px;
+  }
+ 
+  #slider .scroll-container {
+    width: 300%;
+    height: 100%;
+    position: relative;
+    margin: 0;
+    left: 0;
+    animation: 10s slider infinite;
+  }
+ 
+  #slider .scroll-container img {
+    width: 33.3333333333%;
+    height: 100%;
+    float: left;
+    margin: 0;
+    left: 0;
+    object-fit: cover;
+  }
+ 
+  @keyframes slider {
+    0% {
+      left: 0;
+    }
+    45% {
+      left: 0;
+    }
+    50% {
+      left: -100%;
+    }
+    95% {
+      left: -100%;
+    }
+    100% {
+      left: -200%;
+    }
+  }
+ 
+  #page-1,
+  #page-3{
+    font-size: 1.5em;
+    font-weight: bold;
+    background: lightblue;
+  }
+ 
+  #page-2{
+    font-size: 1.5em;
+    font-weight: bold;
+    background: lightcoral;
+  }
+  /*Admin.php*/
+ 
+ 
+body {
+  color: #f3bf8d;
+  background: #eee2d7;
+  color: #111;
+}
+ 
+ 
+#Corpo {
+    width: 100%;
+    margin: auto;
+    padding: 10px;
+    border-radius: 15px;
+}
+ 
+ 
+h1 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+}
+/* Botões principais */
+#Topo, #opcao {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 15px 0;
+}
+ 
+#Topo button, #opcao button {
+    padding: 12px 18px;
+    border: none;
+    border-radius: 10px;
+    background: #e0e0e0;
+    cursor: pointer;
+    transition: 0.3s;
+}
+ 
+#Topo button:hover, #opcao button:hover {
+    background: #c7c7c7;
+}
+ 
+ 
+#Conteudo {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+    margin-top: 20px;
+}
+ 
+ 
+#formulario form {
+    background: #eaf8ff;
+    padding: 20px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+ 
+#formulario input[type="text"],
+#formulario textarea,
+#formulario input[type="file"] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    width: 100%;
+}
+ 
+.estilos {
+    display: flex;
+    gap: 10px;
+    margin-top: 5px;
+}
+.estilo {
+    width: 60px;
+    height: 40px;
+    border: 2px solid #aaa;
+    border-radius: 8px;
+    background: #f5f5f5;
+}
+ 
+.publicar {
+    margin-top: 15px;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    background: #B14A2F;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+ 
+.publicar:hover {
+    background: #B14A2F;
+}
+ 
+ 
+@media (max-width: 900px) {
+    #Conteudo {
+        grid-template-columns: 1fr;
+    }
+}
+ 
+/*Noticia.php*/
+#Noticias{
+  width: 100%;
+ 
+}
+#NoticiaCorpo{
+  max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px; /* ajusta a borda de acord com a tela*/
+}
+#Imagem1{
+  float: right;
+  width: 30%;
+  height: 250px;
+  background-color: dimgrey;
+ 
+}
+ 
+.Text1{
+  width: 70%;
+  text-align: justify-all;
+  font-size: 150%;
+}
+ 
+#Imagem2{
+  float: right;
+  width: 100%;
+  height: 300px;
+  background-color: dimgrey;
+ 
+}
+ 
+.Text2{
+  width: 100%;
+  text-align: justify-all;
+  font-size: 150%;
+}
+ 
+  /*Login.php*/
+ 
+#CorpoLogin{
+    display: none;
+     position: fixed;
+     z-index: 1000;
+     left: 0; top: 0;
+     width: 100%; height: 100%;
+     background-color: rgba(0, 0, 0, 0.6);
+   }
+   
+   
+   #LoginCard{
+    background-color: #eee2d7;
+    margin: 10% auto;
+    padding: 30px;
+    border-radius: 10px;
+    width: 300px;
+    position: relative;
+   }
+ 
+   #Login{
+       border: solid, 1px;
+       border-left: none;
+       border-right: none;
+       border-top: none;
+       height: 52%;
+       text-align: center;
+       width: 100%;
+       border-radius: 20px;
+   }
+   
+   .Input{
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    border-radius: 20px;
+   }
+   
+   .Input::placeholder {
+       font-size: 18.0px;
+   }
+   
+   .Correio{
+    width: 100%;
+    padding: 8px 16px;
+    border-radius: 20px;
+    color: white;
+    background: #B14A2F;
+   }
+   
+   #Google{
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    border-radius: 20px;
+    background: #B14A2F;
+    color: white;
+   }
+   
+   /*Home*/
+ 
+   
+ 

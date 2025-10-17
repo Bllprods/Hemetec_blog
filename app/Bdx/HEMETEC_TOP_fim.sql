@@ -25,7 +25,7 @@ CREATE TABLE ADM (
   nome VARCHAR(200) NOT NULL,
   email VARCHAR(200) NOT NULL UNIQUE,
   senha_hash VARCHAR(255) NOT NULL,
-  nivel_acesso TINYINT UNSIGNED NOT NULL, -- 1 = operador, 5 = superadmin etc
+  nivel_acesso TINYINT UNSIGNED NOT NULL DEFAULT 2, -- 1 = operador, 5 = superadmin etc
   ativo BOOLEAN NOT NULL DEFAULT TRUE,
   criado_em DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   atualizado_em DATETIME NULL ON UPDATE CURRENT_TIMESTAMP,
@@ -123,6 +123,12 @@ CREATE TABLE noticia_texto (
 
  ALTER TABLE Noticia
  ADD CONSTRAINT id_versionamento FOREIGN KEY (id_versionamento) REFERENCES versionamento(id_versionamento) ON DELETE SET NULL ON UPDATE CASCADE;
+
+
+
+ INSERT INTO ADM(nome, email, senha_hash, nivel_acesso) values (
+  "Mara Cristina", "historiaemovimento@gmail.com", SHA2('123456789', 256), 1 
+ );
 
 -- drop database hemetec
 

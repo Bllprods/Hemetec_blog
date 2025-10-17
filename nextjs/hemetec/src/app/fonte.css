@@ -21,6 +21,23 @@
   font-size: 14px;
   color: black;
   line-height: 1.6;
+ 
+  /* Fade-in + slide */
+  opacity: 0;
+  transform: translateY(-10px);
+  animation: fadeSlideIn 0.5s forwards;
+}
+ 
+/* Animação global fade + slide */
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
  
 /* Título principal */

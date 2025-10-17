@@ -26,12 +26,18 @@
             <div id="Bem"><h1>Crie sua conta</h1></div>
 
             <form method="post" action="router.php?action=cadastraU" id="Cadastro">
-                <input type="text" name="nome_de_usuario" required placeholder=" Nome de Usuário"><br>
-                <input type="email" name="email" required placeholder=" user@email.com"><br>
-                <input type="password" name="senha" maxlength="24" minlength="8" required placeholder=" Senha"><br>
-                <input type="password" name="confirma_senha" maxlength="24" minlength="8" required placeholder=" Confirmar Senha"><br>
-                
+                <input type="text" name="nome_de_usuario" id="txtName" required placeholder=" Nome de Usuário"><br>
+                <div>
+                    <input type="email" name="email" id="txtEmail" required placeholder=" user@email.com"><br>
+                    <p id="msgEmail"></p>
+                </div>
+                <div>
+                    <input type="password" name="senha" id="txtPsw1" maxlength="24" minlength="8" required placeholder=" Senha"><br>
+                    <input type="password" name="confirma_senha" id="txtPsw2" maxlength="24" minlength="8" required placeholder=" Confirmar Senha"><br>
+                    <p id="msgConfS"></p>
+                </div>
                 <button type="submit" id="Correio">Cadastrar</button>
+                <button type="submit" id="cadBtn">Cadastrar</button>
             </form>
             
             <div id="Termo"> 
@@ -41,5 +47,6 @@
             </div>
             </div>
         </div>
+        <script src="../app/view/scriptMascara.js"></script>
 </body>
 </html>

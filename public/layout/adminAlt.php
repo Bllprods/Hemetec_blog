@@ -28,7 +28,7 @@
                 }
             ?></textarea> 
 
-            <label for="autor">autor <input type="text" name="autor" required></label>
+            <label for="autor">Autor <input type="text" name="autor" required></label>
 
             <label for="imag">Imagem Atual</label>
             <!-- <img src="<?php echo $img_url;?>" style="max-width:200px;"><br> -->

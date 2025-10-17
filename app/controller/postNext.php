@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . "/../../app/model/postagemModel.php"; 
 
-
+error_reporting(0);
 class NextPost {
     public function __construct(){
     // Instancia o model e consulta os dados
@@ -52,17 +52,23 @@ class NextPost {
         header("Location: http://localhost:3000/TelaNoticias");
         exit;
     }
+
 }
-$action = $_GET['action'];
-$NextPost = new NextPost();
-switch ($action) {
-    case 'chamar':
-        $NextPost->chamarNext();
-        break;
-    case 'atualizar':
-        $NextPost->atualizar();
-        break;
-    default:
-        $NextPost->atualizar();
-        break;
+
+if ($_GET["action"]) {
+    $action = $_GET['action'];
+    $NextPost = new NextPost();
+    switch ($action) {
+        case 'chamar':
+            $NextPost->chamarNext();
+            break;
+        case 'atualizar':
+            $NextPost->atualizar();
+            break;
+        default:
+
+            break;
+    }
 }
+
+

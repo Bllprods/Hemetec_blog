@@ -72,8 +72,8 @@ switch ($action) {
         break;
     }
 ?>
-
-<script src="../app/view/script.js"></script>
+<!-- 
+<script src="../app/view/script.js"></script> -->
 
 <script src="https://cdn.userway.org/widget.js" data-account="VuyKtNfCkR"></script>
 
@@ -86,8 +86,8 @@ switch ($action) {
    </div>
  </div>
 
- <script src="../app/vlibras-plugin.js"></script>
- <script>
+ <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+  <script>
    new window.VLibras.Widget('https://vlibras.gov.br/app');
  </script>
 <!-- ======================= FIM AREA LIBRAS ======================= -->

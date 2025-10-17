@@ -60,15 +60,15 @@
         <br><br>
         <h3>Navegação Rápida</h3>
         <div class="cards">
-            <a href="../app/controller/postNext.php">
+            <a href="../app/controller/postNext.php?action=chamar">
                 <div></div>
             </a>
             
-            <a href="../app/controller/postNext.php">
+            <a href="../app/controller/postNext.php?action=chamar">
                 <div></div>
             </a>
 
-            <a href="../app/controller/postNext.php?">
+            <a href="../app/controller/postNext.php?action=chamar">
                 <div></div>
             </a>
         </div>
@@ -87,16 +87,17 @@
                 foreach ($dadosLimit as $dado):
             ?> 
 
-            <a href="http://localhost:3000/PaginaNoticia?id=<?php echo htmlspecialchars($dado['id_noticia']); ?>&fromTela=1">
+            <a href="http://localhost:3000/PaginaNoticia/<?php echo htmlspecialchars($dado['id_noticia']); ?>?fromTela=1">
                 <div class="card.posts">
                     <?php if (!empty($dado['imagens'])): ?>
-                        <?php foreach ($dado['imagens'] as $imagem): ?>
+                        <?php foreach ($dado['imagens'] as $imagem): 
+                            ?>
                             <img src="<?php  echo htmlspecialchars($imagem); ?>" alt="Imagem da Postagem" style="max-width: 100px;"/>
                         <?php endforeach; ?>
                     <?php else: ?>
                         Sem imagem
                     <?php endif; ?>
-                    <a href="router.php?action=noticias"><h2><?php echo htmlspecialchars($dado['titulo']); ?></h2></a>
+                    <a href="router.php?action=noticias&id=<?php echo htmlspecialchars($dado['id_noticia']);?>"><h2><?php echo htmlspecialchars($dado['titulo']); ?></h2></a>
                 </div>
             </a>
             <?php endforeach; endif;?>
@@ -109,7 +110,7 @@
         <a href="https://github.com/MatheusLima1234/LevelTracks">GitHub do Hemetec</a>
         <br><br>
  
-        <footer>
+        <foot   er>
             2025 © HEMETEC - Todos os direitos reservados
         </footer>
     </div>

@@ -72,6 +72,7 @@ if (session_status() === PHP_SESSION_NONE) {
             require_once "../app/controller/postNext.php";
             $nextPost = new NextPost();  
             $nextPost->atualizar();
+
         ?>
 
         <div class="botoes">

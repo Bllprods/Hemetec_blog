@@ -8,7 +8,7 @@
             <label for="cont">Conteúdo</label>
             <textarea name="cont" id="cont" rows="5"></textarea>
 
-            <label for="autor">autor <input type="text" name="autor" required></label>
+            <label for="autor">Autor <input type="text" name="autor" required></label>
 
             <label for="img">Imagem</label>
             <input type="file" name="img" id="img" accept="image/*" multiple>

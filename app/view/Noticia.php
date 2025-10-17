@@ -83,5 +83,8 @@
 	<div id="RodapeNoticia">
 
 	</div>
+	<script>
+		const Text1 = document.getElement('');
+	</script>
 </body>
 </html>

@@ -1,0 +1,120 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    color: #f3bf8d;
+    background: #eee2d7;
+    color: #111;
+  }
+  
+  
+  #Corpo {
+      width: 100%;
+      margin: auto;
+      padding: 10px;
+      border-radius: 15px;
+      
+  }
+  
+  
+  h1 {
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+  }
+  /* Botões principais */
+  #Topo, #opcao {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin: 15px 0;
+      
+  }
+  
+  #Topo button, #opcao button {
+      padding: 12px 18px;
+      border: none;
+      border-radius: 10px;
+      background: #B14A2F;
+      color: #f5f5f5;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 10px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  #Topo button:hover, #opcao button:hover {
+      background: #b45c45;
+  }
+  
+  
+  #Conteudo {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 20px;
+      margin-top: 50px;
+      margin-left: 280px;
+  }
+  
+  
+  #formulario form {
+      background: #f3bf8d;
+      padding: 20px;
+      border-radius: 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      box-shadow: 0 15px 18px rgba(0, 0, 0, 0.1)
+  }
+  
+  #formulario input[type="text"], 
+  #formulario textarea,
+  #formulario input[type="file"] {
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      width: 100%;
+      background: #fcd6b2;
+      box-shadow: 0 10px 12px rgba(0, 0, 0, 0.1)
+  }
+  
+  
+  .estilos {
+      display: flex;
+      gap: 10px;
+      margin-top: 5px;
+  }
+  .estilo {
+      width: 60px;
+      height: 40px;
+      border: 2px solid #aaa;
+      border-radius: 8px;
+      background: #f5f5f5;
+  }
+  
+  .publicar {
+      margin-top: 15px;
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      background: #B14A2F;
+      color: white;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 10px 12px rgba(0, 0, 0, 0.1)
+  }
+  
+  .publicar:hover {
+      background: #B14A2F;
+  }
+  
+  
+  @media (max-width: 900px) {
+      #Conteudo {
+          grid-template-columns: 1fr;
+      }
+  }
+  

@@ -1,0 +1,199 @@
+/*padronização de todos os elementos do layout*/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  background: #fff;
+  color: #111;
+}
+
+#Corpo {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px; /* ajusta a borda de acord com a tela*/
+}
+
+
+#Cabecario {
+  background: linear-gradient(to right, #8B1E1E, #B14A2F);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 20px;
+  color: white;
+  flex-wrap: wrap; 
+  
+}
+.botoes {
+  display: flex;
+  gap: 10px; 
+}
+
+.botoes button {
+  background: #2ecc71;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.botoes button:hover {
+  background: #27ae60;
+}
+
+
+@media (max-width: 600px) {
+  #Cabecario {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .acoes {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .acoes button {
+    width: auto;  
+  }
+}
+
+#Logo {
+  height: 40px;
+}
+
+#btnEntrar {
+  background: #2ecc71;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+
+#Banner {
+  height: 180px;
+  background: #ccc url("imagens/banner.jpg") center/cover no-repeat;
+  margin: 15px 0;
+  border-radius: 8px;
+}
+
+/* tipos de fromatação p texto*/
+h1 {
+  text-align: center;
+  margin: 20px 0 10px;
+  font-size: 26px;
+}
+
+h2 {
+  text-align: center;
+  font-size: 15px;
+  max-width: 800px;
+  margin: 0 auto 30px;
+  color: #444;
+  font-weight: normal;
+}
+
+h3 {
+  margin: 20px 0;
+  text-align: center;
+}
+
+
+.cards {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.cards div {
+  flex: 1;
+  min-width: 120px;
+  height: 90px;
+  border-radius: 12px;
+}
+
+.cards:not(.posts) div {
+  background: #7C1F07;
+}
+
+.cards.posts div {
+  background: #ddd;
+}
+
+
+footer {
+  background: #111;
+  color: #eee;
+  text-align: center;
+  padding: 15px;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+@media (max-width: 600px) {
+  #Cabecario {
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+  }
+
+  #Logo {
+    height: 35px;
+  }
+
+  #btnEntrar {
+    width: 100%;
+    margin-right: -100px; 
+  }
+
+  #Banner {
+    height: 120px;
+  }
+
+  h1 {
+    font-size: 20px;
+  }
+
+  h2 {
+    font-size: 14px;
+    padding: 0 10px;
+  }
+
+  .cards {
+    flex-direction: column; 
+    align-items: center;
+  }
+
+  .cards div {
+    width: 90%;
+    max-width: 300px;
+  }
+}
+@media (max-width: 900px) {
+  #Corpo {
+    padding: 0 10px;
+  }
+
+  .cards {
+    justify-content: space-around;
+  }
+
+  .cards div {
+    min-width: 140px;
+    height: 100px;
+  }
+}

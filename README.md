@@ -72,13 +72,13 @@ Aqui vai um pequeno tutorial para testar o Projeto *Localmente*:
    git clone https://github.com/Bllprods/Hemetec_blog.git
 
 2. Mova a Pasta para
-   ```bash
+   ```
    xampp/htdocs/
    
 3. abra o control Panel do Xampp e ative o *APACHE* e *MySQL*, clique em **ADMIN** do MySQL no controlPanel do Xampp
 
 4. Importe o Banco de dados em:
-   ```bash
+   ```
    Hemetec_blog-main/app/bdx/
 
 5. No terminal, digite:
@@ -86,5 +86,5 @@ Aqui vai um pequeno tutorial para testar o Projeto *Localmente*:
    npm run start
    
 7. em seu navegador cole:
-    ```bash
+    ```
     http://localhost/Hemetec_blog-main

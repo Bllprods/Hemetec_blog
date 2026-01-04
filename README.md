@@ -53,4 +53,38 @@ Este projeto foi construído com as seguintes tecnologias:
 - **[vinicius131322](https://github.com/vinicius131322):** Desenvolvimento da logomarca, criação de postagens e gestão de conteúdo de divulgação  
 - **[Bardock2025](https://github.com/Bardock2025):** Desenvolvimento das funções JavaScript e manipulação de dados JSON com PHP  
 - **[JoaoPedro-create](https://github.com/JoaoPedro-create):** Desenvolvimento de páginas e auxílio em PHP, JavaScript e CSS  
-- **[LucasEtec3info](https://github.com/LucasEtec3info):** Desenvolvimento de páginas e funcionalidades em Next.js, consumo de dados JSON  
+- **[LucasEtec3info](https://github.com/LucasEtec3info):** Desenvolvimento de páginas e funcionalidades em Next.js, consumo de dados JSON
+
+## 🧪 Tutorial para Teste Local
+
+### 📋 Pré-requisitos
+
+- PHP 8.2+
+- Node.js 22+
+- npm 10+
+- XAMPP
+
+Aqui vai um pequeno tutorial para testar o Projeto *Localmente*:
+
+
+1. Clone o repositório:
+   ```bash
+   git clone https://github.com/Bllprods/Hemetec_blog.git
+
+2. Mova a Pasta para
+   ```bash
+   xampp/htdocs/
+   
+3. abra o control Panel do Xampp e ative o *APACHE* e *MySQL*, clique em **ADMIN** do MySQL no controlPanel do Xampp
+
+4. Importe o Banco de dados em:
+   ```bash
+   Hemetec_blog-main/app/bdx/
+
+5. No terminal, digite:
+   ```bash
+   npm run start
+   
+7. em seu navegador cole:
+    ```bash
+    http://localhost/Hemetec_blog-main

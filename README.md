@@ -77,7 +77,7 @@ Aqui vai um pequeno tutorial para testar o Projeto *Localmente*:
    
 3. abra o control Panel do Xampp e ative o *APACHE* e *MySQL*, clique em **ADMIN** do MySQL no controlPanel do Xampp
 
-4. Importe o Banco de dados em:
+4. Importe o Banco de dados disponivel em:
    ```
    Hemetec_blog-main/app/bdx/
 

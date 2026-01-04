@@ -1,4 +1,3 @@
-
 <?php
 require_once __DIR__ . '/../model/postagemModel.php';
 
@@ -20,6 +19,9 @@ Class homeController{
         require_once __DIR__ . "/../view/Noticia.php?id=";
     }
 
+  	public function esqueciSenha(){
+    	require_once __DIR__ . "/../view/esqueciSenha.php";
+    }
 
     public function admin(){
         require_once __DIR__ . "/../view/Admin.php";

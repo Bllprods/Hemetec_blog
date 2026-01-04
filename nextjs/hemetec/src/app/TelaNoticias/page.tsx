@@ -1,49 +1,82 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import Header from "../components/Header"; // Header integrado
-import '../fonte.css';
-import data from "../../../../../data.json"; // JSON local
+import Header from "../components/Header";
+import "../fonte.css";
+import data from "../../../../../data.json";
  
 export default function TelaNoticias() {
   const [noticias, setNoticias] = useState<any[]>([]);
   const [fadeInStates, setFadeInStates] = useState<boolean[]>([]);
+  const [paginaAtual, setPaginaAtual] = useState(1);
+  const [sortType, setSortType] = useState<"recent" | "old" | "alphabetical">("recent");
+  const [transitioning, setTransitioning] = useState(false);
+ 
+  const noticiasPorPagina = 10;
  
   useEffect(() => {
     setNoticias(data || []);
     setFadeInStates(new Array(data.length).fill(false));
  
-    // Fade-in progressivo
     data.forEach((_, i) => {
       setTimeout(() => {
-        setFadeInStates(prev => {
+        setFadeInStates((prev) => {
           const copy = [...prev];
           copy[i] = true;
           return copy;
         });
-      }, i * 100); // atraso de 100ms entre os cards
+      }, i * 100);
     });
   }, []);
  
+  // Ordena as notícias conforme o filtro
+  const noticiasOrdenadas = [...noticias].sort((a, b) => {
+    if (sortType === "recent") return new Date(b.criado_em).getTime() - new Date(a.criado_em).getTime();
+    if (sortType === "old") return new Date(a.criado_em).getTime() - new Date(b.criado_em).getTime();
+    if (sortType === "alphabetical") return a.titulo.localeCompare(b.titulo);
+    return 0;
+  });
+ 
+  const totalPaginas = Math.ceil(noticias.length / noticiasPorPagina);
+ 
+  // Controle da transição de página
+  const mudarPagina = (novaPagina: number) => {
+    if (novaPagina === paginaAtual || transitioning) return;
+    setTransitioning(true);
+    setTimeout(() => {
+      setPaginaAtual(novaPagina);
+      setTransitioning(false);
+    }, 400); // tempo de transição
+  };
+ 
+  // Notícias da página atual
+  const inicio = (paginaAtual - 1) * noticiasPorPagina;
+  const fim = inicio + noticiasPorPagina;
+  const noticiasPagina = noticiasOrdenadas.slice(inicio, fim);
+ 
   return (
     <div>
-      <Header />
+      <Header onSortChange={(type) => { setSortType(type); setPaginaAtual(1); }} />
  
-      <div id="Corpo" className="body-next" style={{ padding: '20px' }}>
+      <div id="Corpo" className="body-next" style={{ padding: "20px" }}>
         <h2 className="titulo-secundario-next">
           Acompanhe abaixo as últimas postagens publicadas:
         </h2>
  
+        {/* Cards */}
         <div
           className="cards-posts"
           style={{
             display: "flex",
-            flexWrap: "wrap", // cards lado a lado e quebram linha
+            flexWrap: "wrap",
             gap: "20px",
-            justifyContent: "center", // centralizado horizontalmente
+            justifyContent: "center",
+            opacity: transitioning ? 0 : 1,
+            transform: transitioning ? "scale(0.98)" : "scale(1)",
+            transition: "opacity 0.4s ease, transform 0.3s ease",
           }}
         >
-          {noticias.map((noticia, i) => (
+          {noticiasPagina.map((noticia, i) => (
             <article
               key={noticia.id_noticia}
               style={{
@@ -56,16 +89,12 @@ export default function TelaNoticias() {
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
-                border: "2px solid black", // borda preta
-                opacity: fadeInStates[i] ? 1 : 0,
-                transform: fadeInStates[i] ? 'translateY(0)' : 'translateY(20px)',
-                transition: 'opacity 0.5s ease, transform 0.5s ease',
+                opacity: fadeInStates[i + inicio] ? 1 : 0,
+                transform: fadeInStates[i + inicio] ? "translateY(0)" : "translateY(20px)",
+                transition: "opacity 0.2s ease, transform 0.2s ease",
               }}
             >
-              <h3
-                className="titulo-secundario-next"
-                style={{ textAlign: "center", marginBottom: "10px" }}
-              >
+              <h3 className="titulo-secundario-next" style={{ textAlign: "center", marginBottom: "10px" }}>
                 {noticia.titulo}
               </h3>
  
@@ -84,14 +113,7 @@ export default function TelaNoticias() {
                 />
               )}
  
-              <p
-                style={{
-                  fontSize: "13px",
-                  color: "#666",
-                  marginBottom: "15px",
-                  textAlign: "center",
-                }}
-              >
+              <p style={{ fontSize: "13px", color: "#666", marginBottom: "15px", textAlign: "center" }}>
                 Publicado em {new Date(noticia.criado_em).toLocaleDateString("pt-BR")} por {noticia.autor}
               </p>
  
@@ -108,14 +130,46 @@ export default function TelaNoticias() {
                     display: "inline-block",
                   }}
                 >
-                  Ler mais →
+                  Ler mais
                 </span>
               </Link>
             </article>
           ))}
         </div>
+ 
+        {/* Paginação */}
+        <div style={{ display: "flex", justifyContent: "center", gap: "8px", marginTop: "30px", flexWrap: "wrap" }}>
+         
+           
+ 
+          {/* Bolinhas */}
+          {Array.from({ length: totalPaginas }, (_, i) => (
+            <button
+              key={i}
+              onClick={() => mudarPagina(i + 1)}
+              style={{
+                width: "32px",
+                height: "32px",
+                borderRadius: "50%",
+                border: "none",
+                background: paginaAtual === i + 1 ? "black" : "#ccc",
+                color: paginaAtual === i + 1 ? "white" : "black",
+                cursor: "pointer",
+                fontWeight: "bold",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              {i + 1}
+            </button>
+          ))}
+ 
+        
+          
+        </div>
       </div>
     </div>
+    
   );
 }
- 

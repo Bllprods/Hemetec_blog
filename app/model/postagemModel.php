@@ -1,10 +1,6 @@
 <?php
 
 class postagemModel {
-
-    //Pode pá, mas o que cê acha que tá faltando no alterar?
-    //vamoi lá
-
     public $titulo;
     public $imgUrl;
     public $tamanho;
@@ -20,15 +16,29 @@ class postagemModel {
     }
 
 
-    public function cadastrar($titulo, $autor, $txtUrl, $imgUrl, $legenda, $extensaoImg, $visibilidade, $publicacao) {
+    public function cadastrar($titulo, $autor, $txtUrl, $imgUrl, $legenda, $extensaoImg, $visibilidade, $publicacao, $categoria) {
         if (session_status() == PHP_SESSION_NONE) {     
             session_start();
         }
+      try{
         if (!empty($_SESSION['email'])) {
-            $stmt = $this->con->prepare("SELECT COUNT(*) FROM Adm WHERE email = ?");
+            $stmt = $this->con->prepare("SELECT COUNT(*) FROM ADM WHERE email = ?");
             $stmt->execute([$_SESSION['email']]);
             $emailExists = $stmt->fetchColumn();
         }
+                echo "<script>
+                  alert(
+                      'titulo: " . addslashes($titulo) . "\\n' +
+                      'autor: " . addslashes($autor) . "\\n' +
+                      'txtUrl: " . addslashes($txtUrl ?? '') . "\\n' +
+                      'imgUrl: " . addslashes($imgUrl ?? '') . "\\n' +
+                      'legenda: " . addslashes($legenda ?? '') . "\\n' +
+                      'extensaoImg: " . addslashes($extensaoImg ?? '') . "\\n' +
+                      'visibilidade: " . addslashes($visibilidade) . "\\n' +
+                      'publicacao: " . addslashes($publicacao) . "\\n' +
+                      'categoria: " . addslashes($categoria) . "'
+                  );
+                  </script>";
         if (!$emailExists) {
             session_destroy();
             header("Location: ../public/router.php?action=index");
@@ -36,8 +46,8 @@ class postagemModel {
     
             //noticia
             //primaria
-            $stmt = "INSERT INTO Noticia (publicado, visivel) VALUES (?, ?)";
-            $valores = array($publicacao, $visibilidade); 
+            $stmt = "INSERT INTO Noticia (publicado, visivel, categoria) VALUES (?, ?, ?)";
+            $valores = array($publicacao, $visibilidade, $categoria); 
             $exec = $this->con->prepare($stmt);
             $exec->execute($valores);
             $id_noticia = $this->con->lastInsertId();
@@ -108,48 +118,57 @@ class postagemModel {
                 $execT->execute($valores);
             }
         }
+       return true; 
+      } catch (PDOException $e) {
+          error_log($e->getMessage());
+          return false; 
+      }
+      
     }
 
     /* ------------------------------------------------------------------ */
-    public function atualizar($id_versao, $titulo, $autor, $txtUrl, $imgUrl, $legenda, $extensaoImg, $publicacao) {
+    public function atualizar($idNot, $id_versao, $titulo, $autor, $txtUrl, $imgUrl, $legenda, $extensaoImg, $publicado) {
         //subindo ao bd
-        $stmt = "UPDATE Noticia AS n INNER JOIN versionamento AS v ON n.id_noticia = v.id_noticia SET n.publicado = ? WHERE v.id_versao = ?";
-        $valores = array($publicacao, $id_versao); 
+     	 error_log("erro5:   " . $idNot);
+      	$noticia = $idNot;
+        $stmt = "UPDATE Noticia SET publicado = ? WHERE id_noticia = ?" ;
+        $valores = array($publicado, $noticia); 
         $exec = $this->con->prepare($stmt);
         $exec->execute($valores);
-
-        echo "<pre>" . var_dump([
-                                    "valores" => $valores,
-                                    "publicacao" => $publicacao,
-                                    "id versao" => $id_versao]) . "</pre>";
-
+      
+      	if(!empty($idNot)){
+          error_log("erroM2   " . $idNot);
+      	} else{
+          error_log("vazio");
+        }
+    	error_log("erroM:  " . $publicado);
+      	
         $rowsAffected = $exec->rowCount();
-        if ($rowsAffected === 1) {
-            echo "publicação alterada";
-            return $OkN = true;
+        if ($rowsAffected >= 0) {
+            $OkN = true;
         } else{
-            echo "Nenhuma linha de imagem foi alterada.";
-            if ($rowsAffected > 1) {
-                echo "Aviso: Mais de uma linha foi alterada. Número de linhas afetadas: " . $rowsAffected; 
-            }
+            echo "falhaN";
         }
 
         //Alterar Imagem
-        $stmtImagem = "UPDATE Imagem AS i INNER JOIN noticia_imagem AS ni ON i.id_imagem = ni.id_imagem SET i.img_url = ?, i.legenda = ?, i.tamanho = ? WHERE ni.id_versao = ?";
-        $valorImagem = array($imgUrl, $legenda, $extensaoImg, $id_versao);
-        $exeImagem = $this->con->prepare($stmtImagem);
-        // echo "<pre>";
-        //     var_dump($valorImagem);
-        //     // File img (name, tpm_name, size, full_path e error);
-        // echo "</pre>";
-        $exeImagem->execute($valorImagem);
-        
-        if ($exeImagem->rowCount() > 0) {
-            echo "IIII";
-            return $OkI = true;
-        } else {
-            echo "Nenhuma linha de imagem foi alterada.";
+      	if (!empty($imgUrl) && 
+            !empty($legenda) && 
+            !empty($extensaoImg)){
+          $stmtImagem = "UPDATE Imagem AS i INNER JOIN noticia_imagem AS ni ON i.id_imagem = ni.id_imagem SET i.img_url = ?, i.legenda = ?, i.tamanho = ? WHERE ni.id_versao = ?";
+          $valorImagem = array($imgUrl, $legenda, $extensaoImg, $id_versao);
+          $exeImagem = $this->con->prepare($stmtImagem);
+          $exeImagem->execute($valorImagem);
+
+          if ($exeImagem->rowCount() > 0) {
+              $OkI = true;
+          } else {
+              echo "falhaI";
+              $OkI = false;
+          }
+        } else{
+          $OkI = true;
         }
+        
 
         // Alterar Texto
         $stmtTexto = "UPDATE Texto AS T INNER JOIN noticia_texto AS nt ON T.id_texto = nt.id_texto 
@@ -158,22 +177,35 @@ class postagemModel {
         $exeTexto = $this->con->prepare($stmtTexto);
         $exeTexto->execute($valorTexto); 
         if ($exeTexto->rowCount() > 0) {
-            echo "AAAA";
-            return $OkT = true;
+            $OkT = true;
         } else {
-            echo "Nenhuma linha de texto foi alterada.";
+          	echo "falhaT";
+            $OkT = false;
+        }
+      // Alterar Versão
+        error_log($idNot. "/n" . $id_versao);
+        $stmtV = "UPDATE versionamento SET id_versao = ? WHERE id_noticia = ?"; 
+        $valorV = array($id_versao, $idNot);
+        $exeV = $this->con->prepare($stmtV);
+        $exeV->execute($valorV); 
+        if ($exeV->rowCount() > 0) {
+            $OkV = true;
+        } else {
+          echo "falhaV";
+            $OkV = false;
         }
 
-        if (OkN && OkI && OkT) {
-            return true;
+        if (!$OkN || !$OkI || !$OkT || !$OkV) {
+          	return false;
         } else {
-            return false;
+            return true;
         }
+  
     }
 
 
 
-    public function Exc($idNoticia) {
+    public function Exc($idVer, $idNoticia) {
         if (!empty($idNoticia)) {
             // Deleta a notícia
             $stmt = "DELETE FROM Noticia WHERE id_noticia = ?";
@@ -196,8 +228,6 @@ class postagemModel {
             $stmtText->execute();
 
             echo "<script>alert('Exclusão completa!');</script>";
-            header("Location: router.php?action=Admin");
-            exit;
         } else {
             echo "<script>alert('Falha na exclusão');</script>";
         }
@@ -205,7 +235,7 @@ class postagemModel {
 
     public function consulta(){
        try {
-            $sql = "SELECT id_noticia, criado_em FROM  Noticia ORDER BY criado_em DESC";
+            $sql = "SELECT id_noticia, criado_em, publicado, categoria FROM  Noticia ORDER BY criado_em DESC";
             $stmtNot = $this->con->prepare($sql);
             $stmtNot->execute();
 
@@ -217,6 +247,11 @@ class postagemModel {
                 $texto = [];
                 $imagens = [];
                 
+                // $sql = "SELECT categoria FROM Noticia WHERE id_noticia = ?";
+                // $stmtc = $this->con->prepare($sql);
+                // $stmtc-> execute([$id_not]);
+                // $cat = $stmtc->fetchColumn();
+
                 $sql = "SELECT id_versao FROM versionamento WHERE id_noticia = ?";
                 $stmtV = $this->con->prepare($sql);
                 $stmtV-> execute([$id_not]);
@@ -240,6 +275,7 @@ class postagemModel {
                     ['id_noticia' => $id_not],
                     ['id_versao' => $id_versao],
                     ['imagens' => $imagens]
+                    // ['cat' => $cat]
                 );
 
                 if (isset($dados) && !empty($dados)) {
@@ -260,7 +296,11 @@ class postagemModel {
         $stmt->execute([':titulo' => $titulo]);
         $existe = $stmt->fetchColumn() > 0;
         $erro = "Este titulo já foi inserido";
-        return ["existe" => $existe, "msg" => $erro];
+      	if ($existe){
+        	return ["existe" => $existe, "msg" => $erro];
+        } else {
+        	return ["existe" => $existe = false, "msg" => $erro];
+        }
     }
 
 }

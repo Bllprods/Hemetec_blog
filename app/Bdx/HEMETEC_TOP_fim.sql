@@ -41,7 +41,8 @@ CREATE TABLE Noticia (
   criado_em DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   atualizado_em DATETIME NULL ON UPDATE CURRENT_TIMESTAMP,
   publicado BOOLEAN NOT NULL DEFAULT FALSE,
-  visivel BOOLEAN NOT NULL DEFAULT TRUE
+  visivel BOOLEAN NOT NULL DEFAULT TRUE,
+  categoria VARCHAR(50) not null
   -- FOREIGN KEY (id_adm) REFERENCES ADM(id_adm) ON DELETE CASCADE ON UPDATE CASCADE,
   -- INDEX (id_adm)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -123,13 +124,6 @@ CREATE TABLE noticia_texto (
 
  ALTER TABLE Noticia
  ADD CONSTRAINT id_versionamento FOREIGN KEY (id_versionamento) REFERENCES versionamento(id_versionamento) ON DELETE SET NULL ON UPDATE CASCADE;
-
-
-
- INSERT INTO ADM(nome, email, senha_hash, nivel_acesso) values (
-  "Mara Cristina", "historiaemovimento@gmail.com", SHA2('123456789', 256), 1 
- );
-
 -- drop database hemetec
 
 select database * from hemetec

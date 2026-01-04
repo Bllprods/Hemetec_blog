@@ -1,28 +1,51 @@
-#CorpoLogin{
-	position: fixed;
-	width: 100%;
-	height: 100%;
-	top: 0;
-    left: 0;
-    right: 0;
-    z-index: 100;
-}
-
-#ContainerLogo{
-	height: 5%;
-	width: 100%;
-}
-
-#Logo{
-	float: left;
+/*AREA LOGIN*/
+ #CorpoLogin {
+  background-color: rgba(0, 0, 0, 0.6);
+  display: none;
+  left: 0; top: 0;
+  position: fixed;
+  width: 100%; height: 100%;
+  z-index: 1000;
 }
 
 #LoginCard{
-	margin: 0 auto;
-	height: 90%;
-	width: 40%;
-	border-radius: 6%;
-	text-align: center;
+  background-color: #eee2d7;
+  border-radius: 10px;
+  margin: auto;
+  padding: 30px;
+  position: relative;
+  width: 300px;
+}
+
+#Login{
+  border: solid, 1px;
+  border-left: none;
+  border-radius: 20px;
+  border-right: none;
+  border-top: none;
+  height: 52%;
+  text-align: center;
+  width: 100%;
+}
+
+.closeBtn {
+  cursor: pointer;
+  font-weight: bold;
+  margin-left: 90%;
+  margin-top: -13px;
+}
+
+.Input {
+  box-sizing: border-box;
+  border-radius: 20px;
+  margin-bottom: 15px;
+  margin-top: 10px;
+  padding: 10px;
+  width: 100%;
+}
+
+input::placeholder {
+	font-size: 18.0px;
 }
 
 #Opcao{
@@ -33,34 +56,6 @@
 	border: solid, #d8d8d8;
 }
 
-#Bem{
-	width: 100%;
-	text-align: center;
-}
-
-#Login{
-	height: 52%;
-	width: 100%;
-	border: solid 1px;
-	border-top: none;
-	border-left: none;
-	border-right: none;
-	text-align: center;
-}
-
-input{
-	width: 85%;
-	height: 20%;
-	border: solid, black, 1px;
-	
-	border-radius: 18px;
-	margin-top: 4px;
-}
-
-input::placeholder {
-    font-size: 20px;
-}
-
 .hidden {
     display: none;
 }
@@ -69,13 +64,29 @@ input::placeholder {
     display: block; /* or flex, grid, etc. */
 }
 
-#Correio{
-    width: 75%;
-	height: 20%;
-	border: none;
-	border-radius: 18px;
-	margin-top: 4px;
-} 
+.Correio {
+  box-sizing: border-box;
+  background: #B14A2F;
+  border-radius: 20px;
+  color: white;
+  margin-top: 10px;
+  padding: 8px 16px;
+  width: 100%;
+}
+
+#CorpoLoginCad {
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  left: 0; top: 0;
+  position: fixed;
+  width: 100%; height: 100%;
+  z-index: 1000;
+}
+
+#Bem{
+	width: 100%;
+	text-align: center;
+}
 
 #Google{
 	width: 75%;
@@ -86,3 +97,9 @@ input::placeholder {
 	background: none;
 	font-size: 20px;
 }
+
+#Termo {
+  position: relative;
+  text-align: justify;
+}
+/*FIM AREA LOGIN*/

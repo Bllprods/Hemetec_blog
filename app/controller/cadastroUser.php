@@ -29,7 +29,7 @@ class Cad
                     $erro = "Este nome de usuário Indisponivel";
                 } else {
                     if ($modelLogin->salvarUsuario($nomeDeUsuario, $email, $senha, $nivelAcesso)) {
-                        echo "<script>window.location.href='router.php?action=home';</script>";
+                        echo "<script>window.location.href='router.php?action=Admin#Conteudo';</script>";
                         exit;
                     } else {
                         $erro = "Erro ao cadastrar. Tente novamente mais tarde.";

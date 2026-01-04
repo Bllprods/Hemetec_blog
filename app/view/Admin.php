@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="imagens/logoIco.ico">
     <title>Área do Administrador</title>
 </head>
 <body>
@@ -11,28 +12,32 @@
         if (!isset($action) && isset($_GET['action'])) {
             $action = $_GET['action'];
         }
-        include "Layout/Header.php";
+        include "layout/Header.php";
         ?>
-        
-        <div id="Corpo">
         <h1>Área do Administrador</h1>
-
+        <div id="Corpo">
             <div id="Topo">
-                <a href="router.php?action=cons">
+                <a href="router.php?action=index">
+                    <button type="submit">Voltar</button>
+                </a>
+                <a href="router.php?action=user#Conteudo">
+                    <button type="submit">Usuario</button>
+                </a>
+                <a href="router.php?action=cons#Conteudo">
                     <button >Postagens</button>
                 </a>
-                <a href="router.php?action=adm">
+              
+                <a href="router.php?action=adm#Conteudo">
                     <button id="btnAdm">Administração</button>
                 </a>
+
                 <!-- <button type="submit" id>Estatísticas</button> -->
             
-
-            
-                <a href="router.php?action=cad">
+                <a href="router.php?action=cad#Conteudo">
                     <button type="submit">Nova</button>
                 </a>
             </div>
-
+		<div id="CorpoTodo">
 
            <?php
                 switch ($action) {
@@ -54,17 +59,22 @@
                     case 'altAdm':
                         include __DIR__ . "/../../public/layout/adminAdmAlt.php";
                         break;
+                  	case 'user':
+                		include __DIR__ . "/../../public/layout/adminUser.php";
+                        break;
                 }
                 ?>
-
     </div>
-
-</body>
-    <script>
-        const btnAdm = document.getElementById("btnAdm");
-        const isEditor = <?php echo $_SESSION['nivel_acesso'] ?>;
-        if(isEditor == 2){
-            btnAdm.disabled = true;
-        }
+    
+       <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const btnAdm = document.getElementById("btnAdm");
+            const isEditor = <?php echo $_SESSION['nivel_acesso'];?>;
+            if (btnAdm && isEditor == 2) {
+                btnAdm.disabled = true;
+            }
+        });
     </script>
+</body>
+
 </html>

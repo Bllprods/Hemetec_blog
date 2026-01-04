@@ -141,7 +141,7 @@ h3 {
  
  
 footer {
-  background: #111;
+  background: linear-gradient(to right, #8B1E1E, #d44e2d);;
   color: #eee;
   text-align: center;
   padding: 15px;
@@ -198,5 +198,53 @@ footer {
     height: 100px;
   }
 }
- 
- 
+
+
+footer {
+  background: linear-gradient(to right, #8B1E1E, #d44e2d);;
+  border-radius: 6px;
+  color: #eee2d7;
+  font-size: 14px;
+  margin-top: 5%;
+  padding: 2%;
+  text-align: center;
+}
+
+.info {
+  background: linear-gradient(to right, #8B1E1E, #d44e2d);;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin: 2% 1.5px 1.5px 1.5px;
+  padding: 5px;
+  align-items: center;
+  text-align:center;
+  margin-left:13.2%;
+
+} 
+
+.icon-btn {
+  color: #FFF;
+  font-size: 45px;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+.icon-btn:hover {
+  color: #FFF;
+}
+.git-btn {
+  color: #FFFF;
+  font-size: 45px;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+.git-btn:hover {
+  color: #FFF;
+}
+a{
+  color:#fff;
+  vertical-align;
+  
+
+}
+p{align-items:center;}

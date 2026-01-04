@@ -1,15 +1,21 @@
 // app/layout.tsx
-import "../../../../../public/css/Cores.css";
-import "../../../../../public/css/style.css";
-import "../fonte.css"; // adicionado o CSS de fontes
+import "../fonte.css"; // CSS de fontes
  
-export default function RootLayout({ children, }: Readonly<{ children: React.ReactNode }>) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="pt-BR">
+      <head>
+        {/* Favicon vazio para remover o ícone do Next.js */}
+        <link rel="icon" href="data:,">
+      </head>
       <body className="antialiased">
-        {/* Aqui você pode adicionar header/footer globais se quiser */}
         {children}
       </body>
     </html>
   );
 }
+ 

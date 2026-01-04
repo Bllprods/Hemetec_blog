@@ -1,0 +1,203 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+ 
+}
+ 
+body {
+  background:#eee2d7 ;
+  color: #111;
+}
+ 
+#Corpo {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 10px; /* ajusta a borda de acord com a tela*/
+  background: #eee2d7;
+}
+ 
+ 
+#Cabecario {
+  background: linear-gradient(to right, #8B1E1E, #d44e2d);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  color: #f3bf8d;
+  flex-wrap: wrap;
+  border-radius: 15px;
+ 
+}
+.botoes {
+  display: flex;
+  gap: 10px;
+}
+ 
+.botoes button {
+  background: #B14A2F;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+ 
+.botoes button:hover {
+  background: #B14A2F;
+}
+ 
+ 
+@media (max-width: 600px) {
+  #Cabecario {
+    flex-direction: column;
+    gap: 10px;
+  }
+ 
+  .acoes {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+ 
+  .acoes button {
+    width: auto;  
+  }
+}
+ 
+#Logo {
+  height: 110px;
+  width: 115px;
+  margin-left: 35px;
+  background: #eee2d7;
+   border-radius:20px ;
+}
+ 
+#btnEntrar {
+  background: #c4550c;
+  border: solid gray 1px;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  padding: 8px 16px;
+  text-decoration: none;
+}
+ 
+ 
+#Banner {
+  background: #ccc url("../imagens/Banner.png") center/cover no-repeat;
+  border-radius: 8px;
+  height: 180px;
+  margin: 15px 0;
+}
+ 
+/* tipos de fromatação p texto*/
+h1 {
+  text-align: center;
+  margin: 20px 0 10px;
+  font-size: 26px;
+}
+ 
+h2 {
+  text-align: justify;
+  font-size: 15px;
+  max-width: 800px;
+  margin: 0 auto 30px;
+  color: #444;
+  font-weight: normal;
+}
+ 
+h3 {
+  margin: 20px 0;
+  text-align: center;
+}
+ 
+ 
+.cards {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+ 
+.cards div {
+  flex: 1;
+  min-width: 120px;
+  height: 90px;
+  border-radius: 12px;
+}
+ 
+.cards:not(.posts) div {
+  background: #7C1F07;
+}
+ 
+.cards.posts div {
+  background: #ddd;
+}
+ 
+ 
+footer {
+  background: #111;
+  color: #eee;
+  text-align: center;
+  padding: 15px;
+  border-radius: 6px;
+  font-size: 14px;
+}
+ 
+@media (max-width: 600px) {
+  #Cabecario {
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+  }
+ 
+  #btnEntrar {
+    width: 100%;
+    margin-right: -100px;
+  }
+ 
+  #Banner {
+    height: 120px;
+  }
+ 
+  h1 {
+    font-size: 20px;
+  }
+ 
+  h2 {
+    font-size: 14px;
+    padding: 0 10px;
+  }
+ 
+  .cards {
+    flex-direction: column;
+    align-items: center;
+  }
+ 
+  .cards div {
+    width: 90%;
+    max-width: 300px;
+  }
+}
+@media (max-width: 900px) {
+  #Corpo {
+    padding: 0 10px;
+  }
+ 
+  .cards {
+    justify-content: space-around;
+  }
+ 
+  .cards div {
+    min-width: 140px;
+    height: 100px;
+  }
+}
+ 
+ 

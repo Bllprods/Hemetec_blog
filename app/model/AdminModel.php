@@ -10,8 +10,6 @@ class AdminModel {
         $this->con = $classe_con->conectar();
     }
 
-    // essa merda toda é o Login 
-    // Caramba que agrevidade em Bryan lopes Rodrigues
     public function buscarEmail($login) {
         $sql = "SELECT * FROM ADM WHERE email = :e";
         $stmt = $this->con->prepare($sql);
@@ -92,6 +90,8 @@ class AdminModel {
 
     public function salvarUsuario($nomeDeUsuario, $email, $senha, $nivelAcesso) {
         $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
+        $nome = strtolower($nomeDeUsuario);
+        $emailr = strtolower($email);
         $sql = "INSERT INTO ADM (nome, email, senha_hash, nivel_acesso) VALUES (?,?,?,?)";
         $stmt = $this->con->prepare($sql);
         $valores = array($nomeDeUsuario, $email, $senhaHash, $nivelAcesso);
@@ -129,5 +129,44 @@ class AdminModel {
         $sql = "DELETE FROM ADM WHERE id_adm = ?";
         $stmt = $this->con->prepare($sql);
         $stmt->execute([$id_adm]);
+    }
+  
+  	public function alterarSenha($email, $senha){
+    	$sql = "UPDATE ADM SET senha_hash = ? WHERE email = ?";
+      	$stmt = $this->con->prepare($sql);
+      	$senhaHash = password_hash($senha, PASSWORD_DEFAULT);
+      	$valores = array($senhaHash, $email);
+        $stmt->execute($valores);
+      	echo "<script>alert('".$email." e senha: " . $senha . "');</script>";
+        if ($stmt->rowCount() > 0) {
+          	header("location: router.php?action=index");
+            echo "<script>alert('Senha alterada!');</script>";
+          	exit;
+        } else {
+          	header("location: router.php?action=index");
+            echo "<script>alert('Nenhuma linha alterada. Verifique o e-mail.');</script>";
+        }
+    }
+  
+    public function superAdm(){
+        $senhaHash = password_hash("superAdmin1086#", PASSWORD_DEFAULT); 
+        $email = "superAdmin@gmail.com";
+        $sql = "
+        INSERT INTO ADM (nome, email, senha_hash, nivel_acesso)
+        SELECT ?, ?, ?, ?
+        FROM DUAL
+        WHERE NOT EXISTS (
+            SELECT 1 FROM ADM WHERE email = ?
+        )
+        ";
+
+        $stmt = $this->con->prepare($sql);
+        $stmt->execute([
+            "Admin",
+            $email,
+            $senhaHash,
+            1,
+            $email // email usado na verificação
+        ]);
     }
 } 

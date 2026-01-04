@@ -98,16 +98,18 @@ export default async function PaginaNoticia(props: any) {
         </div>
  
         {/* Texto com quebras e wrap garantidos */}
-        <div style={{
+       <div style={{
           whiteSpace: 'pre-wrap',
           wordWrap: 'break-word',
           overflowWrap: 'break-word',
           lineHeight: 1.8,
           fontSize: '16px',
           color: '#111',
-        }}>
-          {conteudoTxt}
-        </div>
+      }}>
+        {/* Renderiza o conteúdo HTML com dangerouslySetInnerHTML */}
+        <div dangerouslySetInnerHTML={{ __html: conteudoTxt }} />
+      </div>
+
  
         {noticia.imagens && noticia.imagens.length > 0 && (
           <ul style={{ padding: 0 }}>
@@ -118,7 +120,6 @@ export default async function PaginaNoticia(props: any) {
             ))}
           </ul>
         )}
- 
         <BackButton />
       </article>
     </div>

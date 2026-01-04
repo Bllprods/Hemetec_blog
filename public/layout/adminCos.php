@@ -1,4 +1,5 @@
-    <div id="Conteudo">
+ 
+<div id="Conteudo">
         <table name="tabela_consulta">
             <tr>
                 <!-- <th>codigo da Noticia</th>
@@ -39,12 +40,12 @@
             ?>
 
             <tr>
-                <!-- <td>
+                <!--<td>
                     <?php echo htmlspecialchars($dados['id_noticia']);?>
                 </td>
                 <td>
                     <?php echo htmlspecialchars($dados['id_versao']);?>
-                </td> -->
+                </td>-->
                 <td>
                     <?php echo htmlspecialchars($dados['titulo']); ?>
                 </td>
@@ -68,9 +69,11 @@
                 </td>
                 <td>
                     <form action="router.php?action=alt" method="post" >
+                        <input type="hidden" name="idNot" value="<?php echo htmlspecialchars($dados['id_noticia']); ?>">
                         <input type="hidden" name="id_versao" value="<?php echo htmlspecialchars($dados['id_versao']); ?>">
                         <input type="hidden" name="titulo" value="<?php echo htmlspecialchars($dados['titulo']); ?>">
                         <input type="hidden" name="txt_url" value="<?php echo htmlspecialchars($dados['txt_url']); ?>">
+                      	<input type="hidden" name="autor" value="<?php echo htmlspecialchars($dados['autor']); ?>">
                         <?php if (!empty($dados['imagens'])): ?>
                             <?php foreach ($dados['imagens'] as $imagem): ?>
                                 <input type="hidden" name="img_url" value="<?php echo htmlspecialchars($imagem['img_url']); ?>"/>
@@ -78,16 +81,32 @@
                         <?php else: ?>
                             Sem imagem
                         <?php endif; ?>
-                        <button type="submit">Alterar</button>
+                        <button type="submit" class="botao">Alterar</button>
                     </form>
                 </td>
                 <td>
-                    <form action="router.php?action=excluir" method="post">
-                        <button type="submit" name="idVer" value="<?php echo htmlspecialchars($dados['id_versao']); ?>"> Excluir</form>
+                    <form action="router.php?action=excluir" method="post"  class="formExc">
+                      	<input type="hidden" name="idNot" value="<?php echo htmlspecialchars($dados['id_noticia']); ?>">
+                        <input type="hidden" name="idVer" value="<?php echo htmlspecialchars($dados['id_versao']); ?>">
+                  		<button type="submit" class="botao">Excluir</button>
                     </form>
                 </td>
             </tr>
             <?php endforeach; 
                 endif?>
         </table>
+  
+        <script>
+          const forms = document.querySelectorAll(".formExc");
+
+          forms.forEach((form) => {
+            form.addEventListener("submit", (e) => {
+              const confirma = confirm("Realmente deseja excluir este registro?");
+              if (!confirma) {
+                e.preventDefault();
+              }
+            });
+          });
+      </script>
+
     </div>

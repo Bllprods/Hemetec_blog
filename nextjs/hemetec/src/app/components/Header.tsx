@@ -1,57 +1,20 @@
 "use client";
- 
-import React, { useEffect, useState } from "react";
-import Link from "next/link";
+import React from "react";
 import Head from "next/head";
+import LogoImg from "../../imagens/logo.jpg";
+import BannerImg from "../../imagens/Banner.png";
 import "../../css/Home.css";
 import "../../css/Cabecario.css";
 import "../../css/Cores.css";
  
-interface UserSession {
-  nome?: string;
-  email?: string;
-  idAdm?: number;
+// ✅ Importando BackButton2 corretamente
+import BackButton from "../PaginaNoticia/[id]/BackButton";
+ 
+interface HeaderProps {
+  onSortChange: (sortType: "recent" | "old" | "alphabetical") => void;
 }
  
-export default function Header() {
-  const [user, setUser] = useState<UserSession | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [menuOpen, setMenuOpen] = useState(false);
- 
-  // Fetch da sessão do usuário
-  useEffect(() => {
-    fetch("/api/session")
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.nome) setUser(data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error(err);
-        setLoading(false);
-      });
-  }, []);
- 
-  const toggleMenu = () => setMenuOpen(!menuOpen);
- 
-  const handleClickOutside = (e: MouseEvent) => {
-    const menuBtn = document.getElementById("menuBtn");
-    const popupMenu = document.getElementById("popupMenu");
-    if (
-      menuBtn &&
-      popupMenu &&
-      !menuBtn.contains(e.target as Node) &&
-      !popupMenu.contains(e.target as Node)
-    ) {
-      setMenuOpen(false);
-    }
-  };
- 
-  useEffect(() => {
-    window.addEventListener("click", handleClickOutside);
-    return () => window.removeEventListener("click", handleClickOutside);
-  }, []);
- 
+export default function Header({ onSortChange }: HeaderProps) {
   return (
     <>
       <Head>
@@ -65,41 +28,59 @@ export default function Header() {
         <div id="Cabecario">
           {/* Logo */}
           <img
-          
-            width={300}
-            height={300}
-            alt=""
-            title=""
+            src={LogoImg.src}
+            alt="Logo"
+            title="Logo"
             id="Logo"
+            width={150}
+            height={150}
           />
  
-          {/* Sessão / Botão Entrar */}
-          <div>
-            {!loading && (user ? (
-              <>
-                
-                <div className="botoes">
-                  <div
-                    id="popupMenu"
-                    style={{ display: menuOpen ? "block" : "none" }}
-                  >
-                    <Link href="http://localhost/a/public/router.php">Home</Link>
-
-                  </div>
-                  <button id="menuBtn" onClick={toggleMenu}>
-                    <h1 style={{ fontSize: '15px'}}>Entrar</h1>
-                  </button>
-                </div>
-              </>
-            ) : (
-              <Link href="/router?action=login" id="btnEntrar">
-                Entrar
-              </Link>
-            ))}
+          {/* Botão Voltar e Dropdown */}
+          <div
+            className="botoes"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "10px",
+            }}
+          >
+            <BackButton /> {/* ✅ Botão funcionando */}
           </div>
  
-          <div id="Banner"></div>
+          <select
+            id="filtroNoticias"
+            onChange={(e) =>
+              onSortChange(
+                e.target.value as "recent" | "old" | "alphabetical"
+              )
+            }
+            style={{
+              padding: "8px 12px",
+              borderRadius: "8px",
+              border: "1px solid #ccc",
+              cursor: "pointer",
+              fontSize: "14px",
+            }}
+          >
+            <option value="recent">Mais novas</option>
+            <option value="old">Mais antigas</option>
+            <option value="alphabetical">Ordem alfabética</option>
+          </select>
         </div>
+ 
+        {/* Banner */}
+        <div
+          id="Banner"
+          style={{
+            backgroundImage: `url(${BannerImg.src})`,
+            height: "180px",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            borderRadius: "8px",
+            marginTop: "10px",
+          }}
+        ></div>
       </div>
     </>
   );

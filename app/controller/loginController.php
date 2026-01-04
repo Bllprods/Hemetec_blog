@@ -6,7 +6,6 @@ class logon{
     public function L()
     {
         $modeloLogin = new AdminModel();
-// q legal
         //testar a sessão, se n, criar uma nova.
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
@@ -22,22 +21,21 @@ class logon{
             if (!empty($login) && !empty($senhaHash)) {
                 if ($modeloLogin->buscarEmail($login) || $modeloLogin->buscaNome($login)){
                     if ($modeloLogin->verificarSenha($senhaHash)) {
-                        //criando variavel de sessão e dando o valor do email
                         if ($modeloLogin->newsection($login)) {
-                            header("Location: ../public/router.php?action=index");
+                          	echo '<script> alert("Sucesso!!"); window.location.href = "router.php?action=Admin#Conteudo";</script>';
+                    		exit;
                         }
                     } else {
-                        $erro = " senha incorreta";
+                        echo "<script> alert('Senha Incorreta!');  window.location.href = 'router.php?action=index'; </script>";
+                        exit;
                     }
                 } else {
-                    $erro = "Nome de usuário ou senha incorretos!";
+                    echo '<script> alert("Usuário não encontrado!!"); window.location.href = "router.php?action=index";</script>';
+                    exit;
                 }
             } else {
-                // Campos vazios
-                $erro = "Por favor, preencha todos os campos.";
-            }
-            if (isset($erro)) {
-                echo "<script src='tratamentoErro.js'>const erro = '" . $erro . "';</script>";
+                echo '<script> alert("Preencha todos os campos!"); window.location.href = "router.php?action=index";</script>';
+                exit;
             }
         }
     }
@@ -51,18 +49,21 @@ class logon{
     }
     public function alterarAdm(){
             $modeloLogin = new AdminModel();
-
+			
+      		
             $id_adm = trim($_POST['id_adm'] ?? '');
             $nome = trim($_POST['nome'] ?? '');
             $email = trim($_POST['email'] ?? '');
             $nivel_acesso = trim($_POST['nivel_acesso'] ?? '');
-
+			
+      		error_log("id: " . $id_adm ."\n nome: " . $nome . "\n email: " . $email . "\n nivel acesso: " . $nivel_acesso);
+      
             if (empty($id_adm) || empty($nome) || empty($email) || empty($nivel_acesso)) {
                 $erro = "Por favor, preencha todos os campos.";
                 echo "<script> const erro ='". $erro ."';</script>";
             } else {
                 $modeloLogin->alterarAdm($id_adm, $nome, $email, $nivel_acesso);
-                echo "<script> window.location.href='router.php?action=Admin';</script>";
+                echo "<script> window.location.href='router.php?action=adm#Conteudo';</script>";
             }
     }
     public function excluirAdm(){
@@ -77,6 +78,13 @@ class logon{
             $modeloLogin->excluirAdm($id_adm);
             echo "<script> alert('Administrador excluído com sucesso!'); window.location.href='router.php?action=index'</script>";
         }
+    }
+  
+  	public function esqueciSenha($email, $senha){
+    	$modeloLogin = new AdminModel();
+      	//echo "<script>alert('".$email." e senha: " . $senha . "');</script>";
+        $modeloLogin->alterarSenha($email, $senha);
+      	//echo"<script>alert('tentando alterar 2');</script>";
     }
 }
 ?>

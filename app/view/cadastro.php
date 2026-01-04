@@ -8,45 +8,38 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="css/Login.css">
-    <link rel="stylesheet" href="css/Fontes.css">
-   
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="imagens/logoIco.ico">
     <title>Cadastro</title>
 </head>
 <body>
-    <div id="CorpoLogin">
-        <div id="ContainerLogo">
-            <img src="imagens/LevelLogo.png" alt="Logo" title="LEVELTRACKS" id="Logo" />
-            <div id="LoginHemetec"><h1>Hemetec</h1></div>
-        </div>
+    <div id="CorpoLoginCad">
         <div id="LoginCard">
-            <div id="Opcao">
-                
+            <div id="Bem">
+                <h1>Crie sua conta</h1>
             </div>
-            <div id="Bem"><h1>Crie sua conta</h1></div>
 
             <form method="post" action="router.php?action=cadastraU" id="Cadastro">
-                <input type="text" name="nome_de_usuario" id="txtName" required placeholder=" Nome de Usuário"><br>
+                <input class="Input" type="text" id="txtName" name="nome_de_usuario" required placeholder=" Nome de Usuário"><br>
                 <div>
-                    <input type="email" name="email" id="txtEmail" required placeholder=" user@email.com"><br>
+                    <input class="Input" type="email" id="txtEmail" name="email" required placeholder=" user@email.com"><br>
                     <p id="msgEmail"></p>
                 </div>
                 <div>
-                    <input type="password" name="senha" id="txtPsw1" maxlength="24" minlength="8" required placeholder=" Senha"><br>
-                    <input type="password" name="confirma_senha" id="txtPsw2" maxlength="24" minlength="8" required placeholder=" Confirmar Senha"><br>
+                    <input class="Input" type="password" id="txtPsw1" name="senha" maxlength="24" minlength="8" required placeholder=" Senha"><br>
+                    <input class="Input" type="password" id="txtPsw2" name="confirma_senha" maxlength="24" minlength="8" required placeholder=" Confirmar Senha"><br>
                     <p id="msgConfS"></p>
                 </div>
-                <button type="submit" id="Correio">Cadastrar</button>
-                <button type="submit" id="cadBtn">Cadastrar</button>
+                <button type="submit" class="Correio" id="cadBtn">Cadastrar</button>
+                <div id="Termo"> 
+                    Ao prosseguir, o Usuário concorda com os nossos 
+                    <a href="Termos.html" class="Termos"> Termos</a> e
+                    <a href="Termos.html" class="Termos"> Políticas de Privacidade</a> 
+                </div>
             </form>
-            
-            <div id="Termo"> 
-                Ao prosseguir, o utilizador concorda com os nossos<br>
-                <a href="Termos.html" class="Termos"> Termos</a> e
-                <a href="Termos.html" class="Termos"> Politicas de Privacidade</a> 
-            </div>
-            </div>
         </div>
-        <script src="../app/view/scriptMascara.js"></script>
+    </div>
+  	<script src="../app/view/scriptMascara.js"></script>
+    <script src="../app/view/Senha.js"></script>
 </body>
 </html>

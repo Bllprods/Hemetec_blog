@@ -3,7 +3,11 @@ const senha = document.getElementById("txtPsw1");
 const senhaConf = document.getElementById("txtPsw2");
 const msgEmailContainer = document.getElementById("msgEmail");
 const msgConfS = document.getElementById("msgConfS");
-const cadBtn = document.getElementById("cadBtn")
+const cadBtn = document.getElementById("cadBtn");
+
+const senhaES = document.getElementById("psw1");
+const senhaConfES = document.getElementById("psw2");
+const msgConfES = document.getElementById("msgConfES");
 
 let emailValid = false;
 let senhaValid = false;
@@ -37,7 +41,7 @@ email.addEventListener("input", ()=>{
     // 2. Verifica se o campo não está vazio E se o formato é inválido.
     if (emailValue !== "" && !isValidEmail(emailValue)) {
         msgEmailContainer.textContent = "Email inválido. Utilize um provedor comum como Gmail, Outlook, Yahoo ou um dos domínios permitidos (Ex: nome@provedor.com).";
-        msgEmailContainer.style.color = "red";
+        msgEmailContainer.style.color = "orange";
         emailValid = false;
     } else {
         emailValid = true;
@@ -46,18 +50,21 @@ email.addEventListener("input", ()=>{
 });
 
 /* verificar senha */
-const senhaNumeros = /\d{5,}/; //teste se há ao menos 5 numeros
-const senhaC = /[a-zA-Z]{3}/; //teste se há ao menos 3 letras(M ou m)
+// const senhaNumeros = /\d/g; //teste se há ao menos 5 numeros
+// const senhaC = /[a-zA-Z]/g; //teste se há ao menos 3 letras(M ou m)
 const senhaLmin = /[a-z]{1}/; //teste se há ao menos 1 letra minuscula
 const senhaLMa = /[A-Z]{1}/; //teste se há ao menos 1 letra maiuscula
 const senhaS = /[\W_]/; // teste de simbolos especiais
+const senhaNs = /^(?!.*(?:012|123|234|345|456|567|678|789|890|987|876|765|654|543|432|321|210)).*$/; 
+// teste de numeros em sequência
 
-const isValidSenha1 = (senha) => senhaNumeros.test(senha);
-const isValidSenha2 = (senha) => senhaC.test(senha);
+
+const isValidSenha1 = (senha) => (senha.match(/\d/g) || []).length >= 2;
+const isValidSenha2 = (senha) => (senha.match(/[a-zA-Z]/g) || []).length >= 5;
 const isValidSenha3 = (senha) => senhaLmin.test(senha);
 const isValidSenha4 = (senha) => senhaLMa.test(senha);
 const isValidSenha5 = (senha) => senhaS.test(senha);
-const isValidSenha6 = (senha) => senhaNumeros.test(senha)
+const isValidSenha6 = (senha) => senhaNs.test(senha)
 
 senha.addEventListener("input", ()=>{
     // 1. Limpa a mensagem
@@ -76,14 +83,46 @@ senha.addEventListener("input", ()=>{
     const min   = isValidSenha3(senhaValue);
     const mai   = isValidSenha4(senhaValue);
     const simb  = isValidSenha5(senhaValue);
+    const Ns    = isValidSenha6(senhaValue);
 
-    if (senhaValue.length <= 8 || !num || !le || !min || !mai || !simb){
-        msgConfS.innerHTML = "Nivel de segurança muito baixo. <br>Considere usar ao menos: <br>-- 5 numeros<br> -- 3 letras(entre maiusculas e minusculas)<br> -- 1 caractere especial";
+    if (senhaValue.length < 8 || !num || !le || !min || !mai || !simb || !Ns){
+        msgConfS.innerHTML = "Nivel de segurança muito baixo. <br>Considere usar ao menos: <br>-- 2 numeros<br> -- 5 letras(entre maiusculas e minusculas)<br> -- 1 caractere especial";
         msgConfS.style.color = "red";
         senhaValid = false;
     } else{
         msgConfS.innerHTML = "Senha Forte";
         msgConfS.style.color = "green";
+        senhaValid = true;
+    }
+    btnAtualiza();
+});
+
+senhaES.addEventListener("input", ()=>{
+    // 1. Limpa a mensagem
+    msgConfES.textContent = "";
+    msgConfES.style.color = "initial";
+    
+    // Pega o valor atual e remove espaços em branco
+    const senhaValue = senhaES.value.trim();
+
+    if (senhaValue.length === 0 ) {
+        return;
+    }
+
+    const num   = isValidSenha1(senhaValue);
+    const le    = isValidSenha2(senhaValue);
+    const min   = isValidSenha3(senhaValue);
+    const mai   = isValidSenha4(senhaValue);
+    const simb  = isValidSenha5(senhaValue);
+    const Ns    = isValidSenha6(senhaValue);
+
+    if (senhaValue.length < 8 || !num || !le || !min || !mai || !simb || !Ns){
+        msgConfES.innerHTML = "Nivel de segurança muito baixo. <br>Considere usar ao menos: <br>-- 2 numeros<br> -- 5 letras(entre maiusculas e minusculas)<br> -- 1 caractere especial";
+        msgConfES.style.color = "red";
+        senhaValid = false;
+    } else{
+        msgConfES.innerHTML = "Senha Forte";
+        msgConfES.style.color = "green";
         senhaValid = true;
     }
     btnAtualiza();
@@ -104,5 +143,17 @@ senhaConf.addEventListener("input", ()=>{
     btnAtualiza();
 });
 
+senhaConfES.addEventListener("input", ()=>{
+    if (senhaES.value != senhaConf.value) {
+        Csenha = false;
+        msgConfES.innerHTML = "as senhas não coincidem!";
+        msgConfES.style.color = "red";
+    } else {
+        msgConfES.innerHTML = "as senhas coincidem!";
+        msgConfES.style.color = "green";
+        Csenha = true;
+    }
+    btnAtualiza();
+});
 
 btnAtualiza();

@@ -28,7 +28,6 @@ $nextPost = new NextPost();
 
 class PostController {
 
-    
     public function cadastrar() {
 
         $objPostagem = new postagemModel();
@@ -36,12 +35,13 @@ class PostController {
         $cont = $_POST['cont'];
         $img = $_FILES['img'] ?? null;
         $autor = $_POST['autor'];
-        $visibilidade = false;
-        $publicacao = false;
+        $visibilidade = true;
+        $publicacao = true;
+        $categoria = $_POST['cat'];
 
         $result = $objPostagem->tituloExiste($titulo);
         if($result['existe']){
-            echo "<script> alert('".$result['msg']."'); window.location.href = 'router.php?action=cad';</script>";
+            echo "<script> alert(" .$result['msg'] .")</script>";
         } else {
             /* --- Controle da imagem --- */
             if ($img && $img["error"] === UPLOAD_ERR_OK) {
@@ -74,28 +74,28 @@ class PostController {
                     echo '<script>const erro = "Falha ao salvar o texto.");</script>';
                 }
             }
-    
+          
             /* --- Salvar no banco --- */
             if (isset($titulo, $autor, $txtUrl)) {
-                if ($objPostagem->cadastrar($titulo, $autor, $txtUrl, $imgUrl ?? null, $legenda ?? null, $extensaoImg ?? null, $visibilidade, $publicacao)) {
-                    echo "Notícia cadastrada com sucesso!";
+              
+                if ($objPostagem->cadastrar($titulo, $autor, $txtUrl, $imgUrl ?? null, $legenda ?? null, $extensaoImg ?? null, $visibilidade, $publicacao, $categoria)) {
+                    echo "<script> alert('Cadastrado bem sucedido'); window.location.href = 'router.php?action=cad';</script>";
                 } else {
-                    echo "Erro no cadastro!";
+                  	echo "<script> alert('Erro no cadastro!'); window.location.href = 'router.php?action=cad';</script>";
                 }
             } else {
-                echo "Erro: dados obrigatórios ausentes!";
+          		echo "<script> alert('Erro: dados obrigatórios ausentes!'); window.location.href = 'router.php?action=cad';</script>";
             }
-            
-            header("Location: router.php?action=Admin");
-            exit;
         }
+      
     }
  
     public function excluir() {
-        if (!empty($_POST['idVer'])) {
+        if (!empty($_POST['idVer']) && !empty($_POST['idNot'])) {
             $objPostagem = new postagemModel();
-            $objPostagem->Exc($_POST['idVer']);
-            echo "<script>alert('Postagem excluída!');</script>";
+            $objPostagem->Exc($_POST['idVer'], $_POST['idNot']);
+          
+            echo "<script> alert('Notícia excluída com sucesso'); window.location.href ='router.php?action=cons#Topo'</script>";
         } else {
             echo "<script>alert('ID da notícia não informado!');</script>";
         }
@@ -104,6 +104,16 @@ class PostController {
     }
  
     public function alterarPost() {
+		if(empty($_POST['ti']) &&
+          empty($_POST['cont']) &&
+          empty($_POST['autor']) &&
+          empty($_POST['id_versao']) &&
+          empty($_POST['idNot']) &&
+          empty($_POST['publicado'] )){
+          	echo '<script>alert("Dados obrigatórios ausentes");</script>';
+          	header("Location: router.php?action=alt");
+          	exit;
+        }
         $objPostagem = new postagemModel();
         $titulo = $_POST['ti'];
         $cont = $_POST['cont'];
@@ -111,28 +121,42 @@ class PostController {
         $autor = $_POST['autor'];
         $txt_url = $_POST['txt_url'] ?? '';
         $img_url = $_POST['img_url'] ?? '';
-        $id_versao = $_POST['id_versao'] ?? null;
- 
-        $publicacao = filter_var($_POST['publicado'] ?? 'false', FILTER_VALIDATE_BOOLEAN);
- 
+        $id_versao = $_POST['id_versao'];
+       	$idNot = $_POST['idNot'];
+        $publicado = $_POST['publicado'];
+      
+      	error_log("erro:  " . $publicado);
+      	error_log("erro2:   " . $idNot);
+        /*$categoria = $_POST['cat'];*/
+      	/*
+      	if($publicado == true){
+			$publicado = 1;
+        } else {
+         	$publicado = 2; 
+        }*/
         // Atualiza imagem
-        $imgUrl = $img_url;
         if ($img && $img["error"] === UPLOAD_ERR_OK) {
-            if (file_exists($img_url)) {
-                unlink($img_url);
-            }
- 
-            $extensaoImg = pathinfo($img["name"], PATHINFO_EXTENSION);
-            $nomeId = uniqid("img_", true) . "." . $extensaoImg;
- 
-            $destino = __DIR__ . '/../docs/imgs/' . $nomeId;
-            if (move_uploaded_file($img['tmp_name'], $destino)) {
-                $imgUrl = 'app/docs/imgs/' . $nomeId;
-                $legenda = $img['name'];
-                echo '<script>alert("Imagem salva com sucesso!");</script>';
-            } else {
-                echo '<script>alert("Falha ao salvar a imagem.");</script>';
-            }
+          $caminho = "../" . $img_url;
+          error_log($caminho);
+          if (file_exists($caminho)) {
+            unlink($caminho);
+          }
+
+          $extensaoImg = pathinfo($img["name"], PATHINFO_EXTENSION);
+          $nomeId = uniqid("img_", true) . "." . $extensaoImg;
+
+          $destino = __DIR__ . '/../docs/imgs/' . $nomeId;
+          if (move_uploaded_file($img['tmp_name'], $destino)) {
+            $imgUrl = 'app/docs/imgs/' . $nomeId;
+            $legenda = $img['name'];
+            //echo '<script>alert("Imagem salva com sucesso!");</script>';
+          } else {
+            echo '<script>alert("Falha ao salvar a imagem.");</script>';
+          }
+        } else{
+        	$imgUser = null;
+          	$legenda = null;
+          	$extensaoImg = null;
         }
  
         // Atualiza texto
@@ -140,7 +164,7 @@ class PostController {
             if (file_exists($txt_url)) {
                 unlink($txt_url);
             }
- 
+ 		
             $url = '../app/docs/arquivos/';
             $tituloLimpo = preg_replace("/[^a-zA-Z0-9_-]/", "", $titulo);
             $nomeTxt = uniqid("txt_", true) . $tituloLimpo . ".txt";
@@ -150,23 +174,23 @@ class PostController {
                 mkdir($url, 0755, true);
             }
  
-            if (file_put_contents($txtUrl, $cont, LOCK_EX) === false) {
+            if (!file_put_contents($txtUrl, $cont, LOCK_EX)) {
                 echo '<script>alert("Falha ao salvar o texto.");</script>';
             }
         } else {
             $txtUrl = $txt_url;
         }
- 
+ 		error_log("erro3:   " . $idNot);
         // Atualiza no banco
-        if ($id_versao && $objPostagem->atualizar($id_versao, $titulo, $autor, $txtUrl, $imgUrl, $legenda ?? '', pathinfo($imgUrl, PATHINFO_EXTENSION) ?? null, $publicacao)) {
-            echo "<script>alert('Notícia atualizada com sucesso!');</script>";
-            header("Location: router.php?action=adminPost");
+        if ($id_versao && $objPostagem->atualizar($idNot, $id_versao, $titulo, $autor, $txtUrl ?? null, $imgUrl ?? null, $legenda ?? '', pathinfo($imgUrl, PATHINFO_EXTENSION) ?? null, $publicado)) {
+           	echo "<script> alert('Notícia alterada com sucesso');</script>";
+            //header("Location: router.php?action=cons");
         } else {
-            echo '<script>alert("Dados obrigatórios ausentes ou erro ao atualizar.");</script>';
+            echo '<script>alert("erro na atualização");</script>';
+          	//header("Location: router.php?action=cons");
         }
         // $nextPost->atualizar();
     }
    
 }
 ?>
- 

@@ -38,7 +38,6 @@ Este projeto foi construído com as seguintes tecnologias:
 ## 🎨 Funcionalidades
 
 - [x] **Feed de Notícias:** Listagem das últimas matérias publicadas  
-- [x] **Responsividade:** Layout adaptável para dispositivos móveis  
 - [x] **Recuperação de Conta:** Recuperação via código enviado por e-mail  
 - [x] **Acessibilidade:** Implementação do VLibras  
 

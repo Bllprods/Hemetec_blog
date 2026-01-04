@@ -23,7 +23,7 @@ Este projeto foi construído com as seguintes tecnologias:
 * **Backend:** PHP.
 * **Banco de Dados:** MySQL.
 * **Hospedagem:** Local/Hostinger.
-* **Protótipo:** [🔗 Ver protótipo no Figma](https://www.figma.com/file/SEU_LINK_AQUI)
+* **Protótipo:** [🔗 Ver protótipo no Figma](https://www.figma.com/proto/jevpJh2ECCk9GXcgj5jR3q/Sem-t%C3%ADtulo?node-id=71-128&p=f&t=HivrK4eLdEpYyEEw-0&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1))
 
 
 ## 🎨 Funcionalidades

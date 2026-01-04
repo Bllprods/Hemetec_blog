@@ -41,4 +41,5 @@ Este projeto foi construído com as seguintes tecnologias:
 - **[vinicius131322](https://github.com/vinicius131322):** Desenvolvimento da Logo, criação de postagens e Gestão de Conteúdo de Divulgação.
 - **[Bardock2025](https://github.com/Bardock2025):** Desenvolvimento das funções JS e manipulação de dados para Json com PHP.
 - **[JoaoPedro-create](https://github.com/JoaoPedro-create):** Desenvolvimento das Paginas e Auxílio no desenvolvimento de PHP, JS e CSS.
+- **[LucasEtec3info](https://github.com/LucasEtec3info):** Desenvolvimento das Paginas e Funcionalidades em NextJs, e recepção de dados JSON
 

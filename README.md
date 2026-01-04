@@ -6,8 +6,6 @@
   <img src="public/imagens/Banner.png" alt="banner histórico" width="100%"/>
 </div>
 
-# <div align="center"> <img src="public/imagens/logo.jpg" alt="Logo Hemetec" width="100" /> <br> HEMETEC - History Blog </div>
-
 > Um portal dinâmico de postagens focado em fatos históricos, curiosidades e tecnologia aplicada à história.
 
 ---
